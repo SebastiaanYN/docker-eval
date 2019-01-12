@@ -1,14 +1,16 @@
 {
   "javascript": {
-    "file": "code.js",
-    "exec": "node code.js"
+    "input": "code.js",
+    "exec": "node $input$"
   },
   "java": {
-    "file": "code.java",
-    "exec": "java code.java"
+    "input": "code.java",
+    "exec": "java $input$"
   },
   "cpp": {
-    "file": "code.cpp",
-    "exec": "g++ -o code code.cpp && ./code"
+    "input": "code.cpp",
+    "output": "code",
+    "compile": "g++ -o $output$ $input$",
+    "exec": "./$output$"
   }
 }

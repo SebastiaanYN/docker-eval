@@ -14,9 +14,23 @@ function execute(code, language) {
   const compiler = compilers[language];
   if (!compiler) return `Unknown language "${language}"`;
 
-  writeFileSync(compiler.file, code);
+  let { input, output, compile, exec } = compiler;
+  writeFileSync(input, code);
+
+  if (compile) {
+    try {
+      execSync(
+        compile.replace(/\$input\$/g, input || '').replace(/\$output\$/g, output || ''), { stdio: 'inherit' }
+      );
+    } catch {
+      return '';
+    }
+  }
+
   try {
-    return execSync(compiler.exec).toString();
+    return execSync(
+      exec.replace(/\$input\$/g, input || '').replace(/\$output\$/g, output || ''), { stdio: 'inherit' }
+    ).toString();
   } catch {
     return '';
   }
