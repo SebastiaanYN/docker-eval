@@ -1,0 +1,14 @@
+{
+  "javascript": {
+    "file": "code.js",
+    "exec": "node code.js"
+  },
+  "java": {
+    "file": "code.java",
+    "exec": "java code.java"
+  },
+  "cpp": {
+    "file": "code.cpp",
+    "exec": "g++ -o code code.cpp && ./code"
+  }
+}
