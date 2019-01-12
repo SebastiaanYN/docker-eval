@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const CONTAINER_NAME = 'docker-evaluate';
 
 function evaluate(code, language, {
+  settings = {},
   cpus,
   memory,
   net = 'none',
@@ -35,7 +36,7 @@ function evaluate(code, language, {
       }
     }, 10 * 1000);
 
-    docker.stdin.write(JSON.stringify({ code, language }));
+    docker.stdin.write(JSON.stringify({ code, language, settings }));
     docker.stdin.end();
 
     let data = '';

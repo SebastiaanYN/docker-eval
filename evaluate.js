@@ -5,16 +5,24 @@ const { execSync } = require('child_process');
 
 const compilers = require('./compilers.json');
 
-function execute(code, language) {
+function execute(code, language, settings) {
   if (!process.env.DOCKER) {
     console.error('You should only run this in docker!');
     process.exit(1);
   }
 
-  const compiler = compilers[language];
-  if (!compiler) return `Unknown language "${language}"`;
+  let compiler = compilers[language];
+  if (!compiler) {
+    console.log(`Unknown language "${language}"`);
+    return;
+  }
 
+  compiler = {
+    ...compiler,
+    ...settings
+  };
   let { input, output, compile, exec } = compiler;
+
   writeFileSync(input, code);
 
   if (compile) {
@@ -28,9 +36,9 @@ function execute(code, language) {
   }
 
   try {
-    return execSync(
+    execSync(
       exec.replace(/\$input\$/g, input || '').replace(/\$output\$/g, output || ''), { stdio: 'inherit' }
-    ).toString();
+    );
   } catch {
     return '';
   }
@@ -42,7 +50,6 @@ process.stdin.on('data', chunck => {
 });
 
 process.stdin.on('end', () => {
-  const { code, language } = JSON.parse(data);
-  const output = execute(code, language);
-  console.log(output);
+  const { code, language, settings } = JSON.parse(data);
+  execute(code, language, settings);
 });

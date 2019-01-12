@@ -15,7 +15,7 @@ client.on('message', async msg => {
 
   let output;
   try {
-    output = await evil(code.join(' '), language);
+    output = await evil(code.join(' '), language, { cpus: '0.5', memory: '25m' });
   } catch (err) {
     output = err;
   }
