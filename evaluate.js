@@ -11,7 +11,8 @@ function execute(code, language, settings) {
     process.exit(1);
   }
 
-  let compiler = compilers[language];
+  let compiler = Object.values(compilers)
+    .find(compiler => compiler.names.includes(language.toLowerCase()));
   if (!compiler) {
     console.log(`Unknown language "${language}"`);
     return;

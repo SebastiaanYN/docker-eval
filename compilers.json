@@ -1,16 +1,68 @@
 {
-  "javascript": {
-    "input": "code.js",
-    "exec": "node $input$"
-  },
-  "java": {
-    "input": "code.java",
-    "exec": "java $input$"
-  },
-  "cpp": {
+  "C/C++": {
+    "names": ["c", "cpp", "c++"],
     "input": "code.cpp",
     "output": "code",
     "compile": "g++ -o $output$ $input$",
     "exec": "./$output$"
+  },
+  "JavaScript": {
+    "names": ["javascript", "js", "node"],
+    "input": "code.js",
+    "exec": "node $input$"
+  },
+  "Java": {
+    "names": ["java"],
+    "input": "code.java",
+    "exec": "java -XX:+UnlockExperimentalVMOptions -XX:+UseEpsilonGC $input$"
+  },
+  "Python3": {
+    "names": ["python3", "python", "py3", "py"],
+    "input": "code.py",
+    "exec": "python3 $input$"
+  },
+  "Python2": {
+    "names": ["python2", "py2"],
+    "input": "code.py",
+    "exec": "python $input$"
+  },
+  "Dart": {
+    "names": ["dart"],
+    "input": "code.dart",
+    "exec": "dart $input$"
+  },
+  "Go": {
+    "names": ["go", "golang"],
+    "input": "code.go",
+    "exec": "go run $input$"
+  },
+  "Ruby": {
+    "names": ["ruby", "rb"],
+    "input": "code.rb",
+    "exec": "ruby $input$"
+  },
+  "Haskell": {
+    "names": ["haskell", "hs"],
+    "input": "code.hs",
+    "output": "code",
+    "compile": "ghc -o $output$ $input$",
+    "exec": "./$output$"
+  },
+  "TypeScript": {
+    "names": ["typescript", "ts"],
+    "input": "code.ts",
+    "output": "code.js",
+    "compile": "tsc $input$",
+    "exec": "node $output$"
+  },
+  "Shell": {
+    "names": ["shell", "sh"],
+    "input": "code.sh",
+    "exec": "chmod +x $input$ && ./$input$"
+  },
+  "C#/.NET": {
+    "names": ["c#", "cs", ".net", "dotnet"],
+    "input": "code.cs",
+    "exec": "echo 'This is not functional yet'"
   }
 }

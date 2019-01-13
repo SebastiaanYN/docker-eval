@@ -1,21 +1,38 @@
-const { Client } = require('discord.js');
+const { Client, RichEmbed } = require('discord.js');
 const client = new Client();
 
 const config = require('./config.json');
+const compilers = require('./compilers.json');
 const evil = require('./index.js');
+
+const PREFIX = '!';
 
 client.on('ready', () => console.log(`Logged in as ${client.user.tag} (${client.user.id})`));
 client.on('error', console.error);
 
 client.on('message', async msg => {
-  if (msg.author.id !== '204156692760494080') return;
-  if (!msg.content.startsWith('!')) return;
+  if (!msg.content.startsWith(PREFIX)) return;
 
-  let [language, ...code] = msg.content.slice(1).split(' ');
+  if (msg.content.startsWith(`${PREFIX}languages`)) {
+    const embed = new RichEmbed()
+      .setTitle('Languages')
+      .setDescription(
+        Object.entries(compilers)
+        .sort(([a], [b]) => a > b ? 1 : -1)
+        .map(([name, info]) => `**${name}**: ${info.names.join(', ')}`)
+      )
+      .setColor('#4f86f7');
+
+    msg.channel.send(embed);
+    return;
+  }
+
+  let [language, ...code] = msg.content.slice(PREFIX.length).split(' ');
+  code = code.join(' ').replace(/(^(?:```(?:\w+?)(?:\r?\n))|(```))|(```$)/g, '').trim();
 
   let output;
   try {
-    output = await evil(code.join(' '), language, { cpus: '0.5', memory: '25m' });
+    output = await evil(code, language, { cpus: '0.5', memory: '250m' });
   } catch (err) {
     output = err;
   }

@@ -1,0 +1,38 @@
+# C/C++
+gcc --version
+g++ --version
+
+# Node
+node -v
+npm -v
+
+# Java
+java -version
+
+# Python
+python -V
+python3 -V
+
+# Dart
+dart --version
+
+# Go
+go version
+
+# Ruby
+ruby --version
+
+# Haskell
+ghc --version
+
+# C#/.NET
+dotnet --version
+
+# TypeScript
+tsc -v
+
+-- Complete --
+C/C++, Node, Java, Python, Dart, Go, Ruby, Haskell, C#/.NET, TypeScript, Shell
+
+-- TODO --
+Kotlin
