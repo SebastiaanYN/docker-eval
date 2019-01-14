@@ -6,6 +6,13 @@
     "compile": "g++ -o $output$ $input$",
     "exec": "./$output$"
   },
+  "Brainfuck": {
+    "names": ["brainfuck","bf"],
+    "input": "code.bf",
+    "output": "code",
+    "compile": "bf-x86 -o code code.bf",
+    "exec": "./code"
+  },
   "JavaScript": {
     "names": ["javascript", "js", "node"],
     "input": "code.js",
