@@ -79,6 +79,10 @@ RUN chmod +x linux-install-1.10.0.411.sh
 RUN ./linux-install-1.10.0.411.sh
 RUN clojure -e '(println "Installed")'
 
+# Brainfuck
+RUN git clone https://github.com/skeeto/bf-x86.git
+ENV PATH="/BF-x86/bin:${PATH}"
+
 #####################
 # Setup environment #
 #####################
