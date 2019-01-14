@@ -34,7 +34,7 @@ function evaluate(code, language, {
       } catch (err) {
         reject(err);
       }
-    }, 10 * 1000);
+    }, 20 * 1000);
 
     docker.stdin.write(JSON.stringify({ code, language, settings }));
     docker.stdin.end();

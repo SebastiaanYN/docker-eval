@@ -28,11 +28,23 @@ ghc --version
 # C#/.NET
 dotnet --version
 
+# Kotlin
+kotlinc -version
+
+# Scala
+scala -version
+
 # TypeScript
 tsc -v
 
--- Complete --
-C/C++, Node, Java, Python, Dart, Go, Ruby, Haskell, C#/.NET, TypeScript, Shell
+# Perl
+perl -v
+
+# Rust
+env HOME=/opt/rust /opt/rust/.cargo/bin/rustc -V
+
+# Clojure
+clojure -h
 
 -- TODO --
-Kotlin
+BASIC, BRAINFUCK, PHP7, Pascal

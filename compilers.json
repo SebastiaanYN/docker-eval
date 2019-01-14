@@ -56,13 +56,42 @@
     "exec": "node $output$"
   },
   "Shell": {
-    "names": ["shell", "sh"],
+    "names": ["shell", "sh", "bash"],
     "input": "code.sh",
     "exec": "chmod +x $input$ && ./$input$"
   },
   "C#/.NET": {
     "names": ["c#", "cs", ".net", "dotnet"],
-    "input": "code.cs",
-    "exec": "echo 'This is not functional yet'"
+    "input": "./cs/code.csx",
+    "exec": "dotnet run $input$ --project ./cs"
+  },
+  "Kotlin": {
+    "names": ["kotlin", "kt"],
+    "input": "code.kt",
+    "output": "code.jar",
+    "compile": "kotlinc $input$ -include-runtime -d $output$",
+    "exec": "java -jar $output$"
+  },
+  "Scala": {
+    "names": ["scala"],
+    "input": "code.scala",
+    "exec": "scala -nc $input$"
+  },
+  "Perl": {
+    "names": ["perl", "pl"],
+    "input": "code.pl",
+    "exec": "perl $input$"
+  },
+  "Rust": {
+    "names": ["rust", "rs"],
+    "input": "code.rs",
+    "output": "code",
+    "compile": "env HOME=/opt/rust /opt/rust/.cargo/bin/rustc $input$ -o $output$",
+    "exec": "./$output$"
+  },
+  "Clojure": {
+    "names": ["clojure", "clj"],
+    "input": "code.clj",
+    "exec": "clojure $input$"
   }
 }

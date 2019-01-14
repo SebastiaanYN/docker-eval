@@ -56,9 +56,28 @@ RUN add-apt-repository universe
 RUN apt-get install apt-transport-https
 RUN apt-get update
 RUN apt-get install -y dotnet-sdk-2.2
+RUN dotnet new console -o /var/eval/cs
 
-# Install additional languages and libraries
+# Kotlin
+RUN wget https://github.com/JetBrains/kotlin/releases/download/v1.3.11/kotlin-compiler-1.3.11.zip && unzip kotlin-compiler-1.3.11.zip
+ENV PATH="/kotlinc/bin:${PATH}"
+
+# Scala
+RUN apt-get install -y scala
+
+# TypeScript
 RUN npm install -g typescript
+
+# Rust
+RUN mkdir -p /opt/rust && \
+    curl https://sh.rustup.rs -sSf | HOME=/opt/rust sh -s -- --no-modify-path -y && \
+    chmod -R 777 /opt/rust
+
+# Clojure
+RUN curl -O https://download.clojure.org/install/linux-install-1.10.0.411.sh
+RUN chmod +x linux-install-1.10.0.411.sh
+RUN ./linux-install-1.10.0.411.sh
+RUN clojure -e '(println "Installed")'
 
 #####################
 # Setup environment #
