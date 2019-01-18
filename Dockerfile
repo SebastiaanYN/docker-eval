@@ -7,8 +7,7 @@ FROM ubuntu:18.04
 
 RUN apt update
 RUN apt upgrade -y
-
-RUN apt install -y gnupg curl wget software-properties-common
+RUN apt install -y gnupg curl wget software-properties-common snapd
 
 #####################
 # Install compilers #
@@ -48,8 +47,9 @@ RUN apt install -y haskell-platform
 RUN wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb
 RUN add-apt-repository universe
-RUN apt install -y apt-transport-https dotnet-sdk-2.2
+RUN apt install -y apt-transport-https
 RUN apt update
+RUN apt install -y dotnet-sdk-2.2
 RUN dotnet new console -o /var/eval/cs
 
 # Kotlin
