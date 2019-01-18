@@ -7,8 +7,7 @@ FROM ubuntu:18.04
 
 RUN apt update
 RUN apt upgrade -y
-RUN apt install -y gnupg curl wget software-properties-common snapd
-RUN service snapd start
+RUN apt install -y gnupg curl wget software-properties-common
 
 #####################
 # Install compilers #
@@ -54,7 +53,8 @@ RUN apt install -y dotnet-sdk-2.2
 RUN dotnet new console -o /var/eval/cs
 
 # Kotlin
-RUN snap install kotlin
+RUN wget https://github.com/JetBrains/kotlin/releases/download/v1.3.11/kotlin-compiler-1.3.11.zip && unzip kotlin-compiler-1.3.11.zip
+ENV PATH="/kotlinc/bin:${PATH}"
 
 # Scala
 RUN apt install -y scala
