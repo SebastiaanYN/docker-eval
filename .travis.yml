@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - 10
+
+services:
+  - docker
+
+install: npm install
+
+jobs:
+  include:
+    - stage: Build
+      script: npm run build
+      name: "Build"
+    - stage: Test
+      script: npm run test
+      name: "Unit test"
+
+cache:
+  directories:
+    - node_modules
