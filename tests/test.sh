@@ -5,11 +5,17 @@ C_RED="\033[1;31m"
 C_GREEN="\033[1;32m"
 C_PURPLE="\033[1;35m"
 
-DOCKER_NAME="docker-evaluate"
+if [ -z "$1" ]
+then
+  DOCKER_NAME="docker-evaluate"
+  docker build -t $DOCKER_NAME .
+else
+  DOCKER_NAME=$1
+fi
+
 CONTAINER_NAME="docker-evaluate-test"
 
 # Start container
-docker build -t $DOCKER_NAME .
 docker run --name $CONTAINER_NAME --rm -i -d $DOCKER_NAME
 
 # Define all compiler checks
