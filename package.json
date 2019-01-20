@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "docker build -t docker-evaluate .",
-    "test": "bash ./tests/test.sh"
+    "test:compilers": "bash ./tests/compilers.sh"
   },
   "author": "SebastiaanYN",
   "license": "ISC"

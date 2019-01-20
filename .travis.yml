@@ -9,17 +9,17 @@ install: npm install
 
 jobs:
   include:
-    - stage: Build docker image
+    - stage: Build
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker build -t docker-eval-build-stage .
         - docker images
         - docker tag docker-eval-build-stage $DOCKER_USERNAME/docker-eval-build-stage
         - docker push $DOCKER_USERNAME/docker-eval-build-stage
-      name: Build
+      name: Docker image
     - stage: Test
-      script: bash ./tests/test.sh $DOCKER_USERNAME/docker-eval-build-stage
-      name: Unit test
+      script: bash ./tests/compilers.sh $DOCKER_USERNAME/docker-eval-build-stage
+      name: Compilers
 
 cache:
   directories:
@@ -27,5 +27,5 @@ cache:
 
 env:
   global:
-  - secure: pSFO3tfzxenw4tRTBNwQuNtENuCyqwIFFPkeX1/8CXDpk7G02SrfGLOiNfdQ1rJRZkm8R7ZKNhcnmZszhufZvC0lNMTZvRHGOvJ4IJPQPoVzIk+ZAbndy2LtrOlApgl2hj3cZlGFsMGD3Ux4hMltqWuSOU+rk+9pnrZjL41QvxPzFx4aUYQiGZ3SCu7tv8Qo78NfDAR+l+vl4BC3EeTIU5YJIq23Roy8MjONoKMkE+Nr/DUF8sGTKl1SWuzBVptlLDdaxoIubv3ewhFcSQXodv2FRarRafoAbdVhtgmdtPqJPIkd4+rMdErTYtWIX6yUpQDfneCernFNvSJ9jUvnm5iI1FE+JSLYnNagGV7Ch7f+pZJxbDL9wBfVj3ZIWSdH5QSMFhOJspS9RQ72/o5L0dMOIFX0KMCkoIz2zf+CtW9Qbo9vY2VPTLeZJDGd06Hv3EIT9d6KNU+JbHUruZG/buigOEBZVs03DNLz9kdhYb9K2/IeXUC3yMsOjHJib3gDp5mYW6LvoO2dze1c1b7OCL21pZSbZ5z3OkZWDArqStjXfSRp5tUjSRYyuSygtH+I5AhauD0aNx4QPgro33dh/RIIq/JYTxs+hblSn9t01XW4N0xK2t1CZilpcVgSXtRlELMFAYg0sEqlgNnDOhlkYRqTsI12TDq9D03e3kG90+s=
-  - secure: fuUUDBd+AWqXtmTAliYI9I5RRhpIew1BVKW8rFiHlh3OIaKaGnsZGup2IhEH8fZlhqI9s0Qkyf46GrUrcgTP8gklLc18ei7PkROZYRph4YRtMs7pmWCq4Czh37bEKhuMj4ucHbOpEtzGr5uT1pImwBiVsOC659XWgrJ83W0sJjlSsGRoMcFGkf+66OrmdfrGqmC/W04qi9pGdhgWQ/zoUY6FqQwPDTBDsS2JgYNHHJrBN0J1/aHoZ2QltSWi53muqygWDhrGtCvYBKOHgdAPvPAJU4mlejz4f2gKGotMe7n1KmcAIO980oOi54kP2N1QCb6J44J4+98lR0kFadrxUM+wqSQ6vG+EjRBymA0JqBGZ3BSuRa2MMRIBSSonEQFJSxzu+yZcl+cAS0i16s0qd+BV8zMNmg5DrJA1aubP1KyqZJVLBZNgOsf0bEF1EoAj1fS5jj5n9RIB6ySWkNZLRdELo82imWbDetUg4EXSLZxtiA4ALtC6zl9A/AKWBNy77hQIDgM/1f3YlXNyqVx4qaAhLVJG/yZXtwjFH9Ypoh9NQJ2Y9mvz3EPAm/EzigE62vlShxRospL4iI2SRiStzLbLW55U2HtB+ZyJ+pAfihITpQPuUO7AFslWKKc4NH+J4b5ZmmA0kicDVGvQFl0YpzZx4lYec+v0midFQunkM3k=
+    - secure: pSFO3tfzxenw4tRTBNwQuNtENuCyqwIFFPkeX1/8CXDpk7G02SrfGLOiNfdQ1rJRZkm8R7ZKNhcnmZszhufZvC0lNMTZvRHGOvJ4IJPQPoVzIk+ZAbndy2LtrOlApgl2hj3cZlGFsMGD3Ux4hMltqWuSOU+rk+9pnrZjL41QvxPzFx4aUYQiGZ3SCu7tv8Qo78NfDAR+l+vl4BC3EeTIU5YJIq23Roy8MjONoKMkE+Nr/DUF8sGTKl1SWuzBVptlLDdaxoIubv3ewhFcSQXodv2FRarRafoAbdVhtgmdtPqJPIkd4+rMdErTYtWIX6yUpQDfneCernFNvSJ9jUvnm5iI1FE+JSLYnNagGV7Ch7f+pZJxbDL9wBfVj3ZIWSdH5QSMFhOJspS9RQ72/o5L0dMOIFX0KMCkoIz2zf+CtW9Qbo9vY2VPTLeZJDGd06Hv3EIT9d6KNU+JbHUruZG/buigOEBZVs03DNLz9kdhYb9K2/IeXUC3yMsOjHJib3gDp5mYW6LvoO2dze1c1b7OCL21pZSbZ5z3OkZWDArqStjXfSRp5tUjSRYyuSygtH+I5AhauD0aNx4QPgro33dh/RIIq/JYTxs+hblSn9t01XW4N0xK2t1CZilpcVgSXtRlELMFAYg0sEqlgNnDOhlkYRqTsI12TDq9D03e3kG90+s=
+    - secure: fuUUDBd+AWqXtmTAliYI9I5RRhpIew1BVKW8rFiHlh3OIaKaGnsZGup2IhEH8fZlhqI9s0Qkyf46GrUrcgTP8gklLc18ei7PkROZYRph4YRtMs7pmWCq4Czh37bEKhuMj4ucHbOpEtzGr5uT1pImwBiVsOC659XWgrJ83W0sJjlSsGRoMcFGkf+66OrmdfrGqmC/W04qi9pGdhgWQ/zoUY6FqQwPDTBDsS2JgYNHHJrBN0J1/aHoZ2QltSWi53muqygWDhrGtCvYBKOHgdAPvPAJU4mlejz4f2gKGotMe7n1KmcAIO980oOi54kP2N1QCb6J44J4+98lR0kFadrxUM+wqSQ6vG+EjRBymA0JqBGZ3BSuRa2MMRIBSSonEQFJSxzu+yZcl+cAS0i16s0qd+BV8zMNmg5DrJA1aubP1KyqZJVLBZNgOsf0bEF1EoAj1fS5jj5n9RIB6ySWkNZLRdELo82imWbDetUg4EXSLZxtiA4ALtC6zl9A/AKWBNy77hQIDgM/1f3YlXNyqVx4qaAhLVJG/yZXtwjFH9Ypoh9NQJ2Y9mvz3EPAm/EzigE62vlShxRospL4iI2SRiStzLbLW55U2HtB+ZyJ+pAfihITpQPuUO7AFslWKKc4NH+J4b5ZmmA0kicDVGvQFl0YpzZx4lYec+v0midFQunkM3k=
