@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
+C_NONE="\033[0m"
+C_RED="\033[1;31m"
+C_GREEN="\033[1;32m"
+C_PURPLE="\033[1;35m"
+
 DOCKER_NAME="docker-evaluate"
 CONTAINER_NAME="docker-evaluate-test"
 
-# Build and start container
+# Start container
 docker build -t $DOCKER_NAME .
 docker run --name $CONTAINER_NAME --rm -i -d $DOCKER_NAME
 
@@ -25,7 +30,7 @@ declare -a COMPILERS=(
   "scala -version"
   "tsc -v"
   "perl -v"
-  # "HOME=/opt/rust /opt/rust/.cargo/bin/rustc -V" Rust doesn't quite work, need to look for a better install
+  # "HOME=/opt/rust /opt/rust/.cargo/bin/rustc -V" Rust doesn"t quite work, need to look for a better install
   "clojure -h"
 )
 
@@ -33,7 +38,7 @@ declare -a COMPILERS=(
 for COMPILER in "${COMPILERS[@]}"
 do
   echo ""
-  echo "Running: $COMPILER"
+  echo -e "${C_PURPLE}Running: $COMPILER${C_NONE}"
 
   # Execute compiler check
   docker exec -t $CONTAINER_NAME $COMPILER
@@ -41,12 +46,12 @@ do
   # Check the status code
   if [ $? -eq 0 ]
   then
-    echo "Passed"
+    echo -e "${C_GREEN}Passed${C_NONE}"
   else
     FAIL_CODE=$?
 
     echo ""
-    echo "'$COMPILER' failed with code $FAIL_CODE"
+    echo -e "${C_RED}'$COMPILER' failed with code $FAIL_CODE${C_NONE}"
     echo ""
 
     # Stop container and exit with the status of the compiler check
