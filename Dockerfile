@@ -21,7 +21,7 @@ RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
 RUN apt install -y nodejs
 
 # OpenJDK 11
-RUN wget -q -O - https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.gz | tar -xzv
+RUN wget -q -O - https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz | tar -xzv
 ENV PATH="/jdk-11.0.1/bin:${PATH}"
 
 # Python
